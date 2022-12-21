@@ -1,16 +1,28 @@
- <%= @post.title %>
-  <%= @post.content %>
-  <% @post.categories.each do |category| %>
-    <%= category.name %>
-  <% end %>
+<%= @post.title %>
+<%= @post.content %>
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
 
-  <% @post.comments.each do |comment| %>
-    <%= comment.content %>
-  <% end %>
-
-
-
+<% @post.comments.each do |comment| %>
+  <%= comment.content %>
+  <%= link_to comment.user.username, user_path(comment) %>
+<% end %>
 
 
-
-
+<%= form_for @post do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.collection_select :user_ids, User.all, :id, :username %> 
+    
+    <%= f.fields_for :users, @post.users.build do |users_fields| %>
+      <%= users_fields.text_field :username %>
+    <% end %>
+  
+    <%= f.submit %>
+      
+<% end %>
+  
+    
+    
+    
+    
