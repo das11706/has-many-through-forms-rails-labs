@@ -19,8 +19,8 @@
     <%= f.fields_for :user, User.new do |user_fields| %>
       <%= user_fields.text_field :username %>
       <% end %>
+
       <%= f.text_field :content %>
-  
     <%= f.submit %>    
 <% end %>
     
