@@ -1,14 +1,15 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
+  accepts_nested_attributes_for :user, reject_if: proc { |attributes| attributes['username'].blank? }
   
 
-  def user_attributes=(user_attributes)
-    # self.user = User.where(:username => user_attributes[:username]).first_or_create do |u|
-    #   u.email = user_attributes[:email]
-    # end
-    self.user = User.find_or_create_by(username: user_attributes[:username]) unless user_attributes[:username].blank?
-  end
+  # def user_attributes=(user_attributes)
+  #   # self.user = User.where(:username => user_attributes[:username]).first_or_create do |u|
+  #   #   u.email = user_attributes[:email]
+  #   # end
+  #   self.user = User.find_or_create_by(username: user_attributes[:username]) unless user_attributes[:username].blank?
+  # end
 
 
   # def user_attributes=(user_attributes)
